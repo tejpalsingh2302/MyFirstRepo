@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>MYFirstProject</artifactId>
+		<groupId>MYFirstProject</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<!-- <groupId>MYFirstProject</groupId> -->
+	<artifactId>MyWarModule</artifactId>
+	<!-- <version>0.0.1-SNAPSHOT</version> -->
+	<packaging>war</packaging>
+	<name>MyWarModuleFirst Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<spring.version>3.1.0.RELEASE</spring.version>
+		<cxf.version>2.5.0</cxf.version>
+		<jackson.version>1.9.13</jackson.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<!-- <dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-json-provider</artifactId>
+			<version>${jackson.version}</version>
+		</dependency> -->
+		<!-- <dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-simple</artifactId>
+			<version>${cxf.version}</version>
+		</dependency> -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxws</artifactId>
+			<version>${cxf.version}</version>
+		</dependency> 
+		
+	</dependencies>
+	<build>
+		<finalName>MyWarModuleFirst</finalName>
+	</build>
+</project>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jaxrs="http://cxf.apache.org/jaxrs" xmlns:cxf="http://cxf.apache.org/core"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xmlns:jms="http://www.springframework.org/schema/jms" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="
+                        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
+                       	http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://cxf.apache.org/jaxrs
+						http://cxf.apache.org/schemas/jaxrs.xsd
+						http://cxf.apache.org/jaxws
+						http://cxf.apache.org/schemas/jaxws.xsd
+						http://www.springframework.org/schema/jms  
+    					http://www.springframework.org/schema/jms/spring-jms-3.0.xsd
+                        http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com"></context:component-scan>
+
+	<import resource="classpath:META-INF/cxf/cxf.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+	<bean id="restService" class="com.rest.RestService" />
+	<jaxrs:server id="restCxfServer" address="/">
+		<jaxrs:serviceBeans>
+			<ref bean="restService" />
+		</jaxrs:serviceBeans>
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJsonProvider" />
+		</jaxrs:providers>
+	</jaxrs:server>
+
+	<bean id="soapWebServiceInterfaceOne" class="com.soap.SoapWebServiceInterfaceImpl">
+	</bean>
+	<jaxws:endpoint id="soapWebServiceInterface"
+		implementor="#soapWebServiceInterfaceOne" address="/soapWebServiceInterface" />
+
+	<bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"
+		p:brokerURL="tcp://localhost:61616" />
+
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<constructor-arg name="connectionFactory" ref="connectionFactory"></constructor-arg>
+		<property name="defaultDestinationName" value="myqueue"></property>
+		<property name="defaultDestination" ref="defaultDestination" />
+	</bean>
+	<bean id="defaultDestination" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="myqueue" />
+	</bean>
+	<bean id="mygcdqueue" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg index="0" value="mygcdqueue" />
+	</bean>
+
+
+</beans>
